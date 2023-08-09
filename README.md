@@ -1,15 +1,14 @@
 # Telekinetic
 
-## Getting Started
+## Prerequisites
 
-How to get the project running on your machine.
+* This project runs on Linux systems using the X Window System. A Leap Motion controller is also needed.
 
-### Prerequisites
+## Leap Motion libraries:
 
-This project runs on Linux systems using the X Window System. A Leap Motion controller is also needed.
-
-#### Leap Motion libraries:
-
+### Windows
+For compatibility reasons, version 2.3 of the Leap Motion tracking software is needed. Specifically, [this](https://lm-public.s3.amazonaws.com/cs-resources/v2.3.1_Win10_FallCreator_hotfix.zip) hotfix version of the software must be used for reasons detailed [here](https://forums.leapmotion.com/t/resolved-windows-10-fall-creators-update-bugfix/6585). 
+### Linux
 The necessary Leap Motion headers are included in this project already.
 Install Leap packages on Ubuntu 12.04 and later after downloading the SDK (v2.3) from the [Leap legacy release page](https://developer.leapmotion.com/releases) with
 ```
@@ -41,15 +40,22 @@ The mouse simulation module requires libxdo-dev which can be installed with:
 sudo apt-get install xdotool
 ```
 
-### Building
-For the time being, the project must be compiled by going to the root of each of the three modules and compiling individually. 
+## Building
+Before building, Cmake must be used to generate the build files for the hand tracking module. Running ```cmake``` from the project root should suffice.
 
-Run:
+After that simply use:
 ```
 cargo build --release
 ```
-in the project root and 'mouse_simulator' folder and:
+in the project root to build the entire project. All binaries will be placed in ```target/release``` or ```target/debug``` depending on which you have built.
+
+## Use
+The program can be run from the command line, either by using cargo: 
 ```
-make leap-mouse
-```
-in the 'hand_tracking' folder
+cargo run --bin telekinetic
+``` 
+or running directly with by running ```telekinetic``` from the  binary directory.
+
+The hand tracker follows your index finger for the mouse pointer position. Left mouse presses can be simulated by retracting your thumb while releases can be simulated by extending your thumb. Similarly, right mouse clicks can be simulated by retracting your middle finger and releases are simulated by extending your middle finger. A demonstration is provided below.
+
+![Linux Screencast Demo](demo/Linux_Demo_Screencast.gif) ![Linux Recording Demo](demo/Linux_Demo_Recording.gif)
